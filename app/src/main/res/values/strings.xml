@@ -4,4 +4,5 @@
     <string name="register">Register</string>
     <string name="report_issue">Report Issue</string>
     <string name="describe_issue">Describe the issue</string>
+    <string name="your_firebase_api_key">AIzaSyDV6-k3DyXSCVncWDroI0Ir4nC0fD5thV4</string>
 </resources>

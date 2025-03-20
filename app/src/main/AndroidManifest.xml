@@ -5,6 +5,7 @@
     <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:allowBackup="true"
@@ -15,7 +16,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CivicNodeMobileApplication"
-        tools:targetApi="31">
+        android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true"
+        tools:targetApi="31">  <!-- FIXED: Properly closed application tag -->
+
+        <!-- Firebase API Key Meta-Data (Correctly placed inside <application>) -->
+        <meta-data
+            android:name="com.google.firebase.auth.API_KEY"
+            android:value="@string/your_firebase_api_key" />
 
         <!-- Login Activity -->
         <activity
@@ -49,6 +57,25 @@
             android:exported="true"
             android:label="Admin Dashboard"
             android:theme="@style/Theme.CivicNodeMobileApplication" />
+
+        <activity
+            android:name=".ReportIssueActivity"
+            android:exported="true"
+            android:label="Report Issue"
+            android:theme="@style/Theme.CivicNodeMobileApplication" />
+
+        <activity
+            android:name=".ViewComplaintsActivity"
+            android:exported="true"
+            android:label="View Complaints"
+            android:theme="@style/Theme.CivicNodeMobileApplication" />
+
+        <activity
+            android:name=".BillPaymentActivity"
+            android:exported="true"
+            android:label="Bill Payment"
+            android:theme="@style/Theme.CivicNodeMobileApplication" />
+
 
     </application>
 </manifest>

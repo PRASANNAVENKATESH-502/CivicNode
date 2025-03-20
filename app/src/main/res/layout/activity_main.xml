@@ -10,22 +10,32 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <EditText
-            android:id="@+id/issueDescription"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/welcomeMessage"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Describe the issue" />
+            android:paddingBottom="10dp"
+            android:text="Welcome to CivicNode"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <Button
-            android:id="@+id/reportButton"
+            android:id="@+id/btnReportIssue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Report Issue" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/issuesRecyclerView"
+        <Button
+            android:id="@+id/btnViewComplaints"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
+            android:text="View Complaints" />
+
+        <Button
+            android:id="@+id/btnBillPayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pay Electricity Bills" />
+
     </LinearLayout>
 </LinearLayout>

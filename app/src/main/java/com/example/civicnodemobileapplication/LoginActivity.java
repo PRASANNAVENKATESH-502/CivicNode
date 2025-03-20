@@ -22,6 +22,13 @@ public class LoginActivity extends AppCompatActivity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
+        // ✅ Auto-login check
+        if (mAuth.getCurrentUser() != null) {
+            Toast.makeText(this, "Already logged in!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish(); // Close LoginActivity
+        }
+
         // Find views
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
