@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CivicNode</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="report_issue">Report Issue</string>
+    <string name="describe_issue">Describe the issue</string>
+</resources>
