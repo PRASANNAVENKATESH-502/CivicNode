@@ -19,14 +19,15 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.IssueViewHol
     @NonNull
     @Override
     public IssueViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_issue, parent, false);
         return new IssueViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull IssueViewHolder holder, int position) {
         Issue issue = issueList.get(position);
-        holder.textView.setText(issue.getDescription());
+        holder.titleTextView.setText(issue.getTitle());
+        holder.descriptionTextView.setText(issue.getDescription());
     }
 
     @Override
@@ -34,12 +35,13 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.IssueViewHol
         return issueList.size();
     }
 
-    static class IssueViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
+    public static class IssueViewHolder extends RecyclerView.ViewHolder {
+        TextView titleTextView, descriptionTextView;
 
-        public IssueViewHolder(@NonNull View itemView) {
+        public IssueViewHolder(View itemView) {
             super(itemView);
-            textView = itemView.findViewById(android.R.id.text1);
+            titleTextView = itemView.findViewById(R.id.issueTitle);
+            descriptionTextView = itemView.findViewById(R.id.issueDescription);
         }
     }
 }

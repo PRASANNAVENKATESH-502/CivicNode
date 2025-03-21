@@ -3,7 +3,7 @@ package com.example.civicnodemobileapplication;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
+import com.example.civicnodemobileapplication.R;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -19,8 +19,7 @@ public class ViewComplaintsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_complaints);
-
-        listViewComplaints = findViewById(R.id.listViewComplaints);
+        listViewComplaints = findViewById(R.id.complaintsListView);  // Matches XML
 
         // Dummy data for now (Replace with Firebase retrieval)
         complaintsList = new ArrayList<>();

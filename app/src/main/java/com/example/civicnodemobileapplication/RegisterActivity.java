@@ -1,22 +1,25 @@
 package com.example.civicnodemobileapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
-import com.google.firebase.auth.FirebaseAuth;
 import androidx.annotation.NonNull;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
-
+import androidx.appcompat.app.AppCompatActivity;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
+import com.google.firebase.auth.PhoneAuthProvider;
+import java.util.concurrent.TimeUnit;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText email, password;
-    private Button registerButton;
+    private EditText phoneNumber, email, password;
+    private Button sendOtpBtn, registerWithEmailBtn;
     private FirebaseAuth mAuth;
 
     @Override
@@ -24,39 +27,65 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        // Find views
+        phoneNumber = findViewById(R.id.phoneNumber);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
-        registerButton = findViewById(R.id.registerButton);
+        sendOtpBtn = findViewById(R.id.sendOtpBtn);
+        registerWithEmailBtn = findViewById(R.id.registerWithEmailBtn);
 
-        // Set click listener
-        registerButton.setOnClickListener(v -> registerUser());
+        sendOtpBtn.setOnClickListener(view -> {
+            String phone = phoneNumber.getText().toString().trim();
+            if (TextUtils.isEmpty(phone)) {
+                Toast.makeText(RegisterActivity.this, "Enter phone number", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            sendOTP(phone);
+        });
+
+        registerWithEmailBtn.setOnClickListener(view -> {
+            String emailText = email.getText().toString().trim();
+            String passwordText = password.getText().toString().trim();
+
+            if (TextUtils.isEmpty(emailText) || TextUtils.isEmpty(passwordText)) {
+                Toast.makeText(RegisterActivity.this, "Enter email and password", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            registerWithEmail(emailText, passwordText);
+        });
     }
 
-    private void registerUser() {
-        String userEmail = email.getText().toString().trim();
-        String userPassword = password.getText().toString().trim();
+    private void sendOTP(String phone) {
+        PhoneAuthOptions options =
+                PhoneAuthOptions.newBuilder(mAuth)
+                        .setPhoneNumber("+91" + phone) // Change for different country codes
+                        .setTimeout(60L, TimeUnit.SECONDS)
+                        .setActivity(this)
+                        .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                            @Override
+                            public void onVerificationCompleted(@NonNull PhoneAuthCredential credential) {
+                                Toast.makeText(RegisterActivity.this, "OTP Auto-Detected", Toast.LENGTH_SHORT).show();
+                            }
 
-        // Validate input
-        if (userEmail.isEmpty() || userPassword.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-            return;
-        }
+                            @Override
+                            public void onVerificationFailed(@NonNull com.google.firebase.FirebaseException e) {
+                                Toast.makeText(RegisterActivity.this, "Verification Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .build();
+        PhoneAuthProvider.verifyPhoneNumber(options);
+    }
 
-        // Create user with Firebase Auth
-        mAuth.createUserWithEmailAndPassword(userEmail, userPassword)
-                .addOnCompleteListener(task -> {
+    private void registerWithEmail(String email, String password) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        // Registration successful, navigate to MainActivity
-                        Toast.makeText(RegisterActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                        finish(); // Close RegisterActivity
+                        Toast.makeText(RegisterActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                        finish();
                     } else {
-                        // Registration failed
-                        Toast.makeText(RegisterActivity.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Registration Failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

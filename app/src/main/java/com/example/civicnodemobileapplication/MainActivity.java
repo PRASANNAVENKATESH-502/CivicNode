@@ -2,41 +2,43 @@ package com.example.civicnodemobileapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.civicnodemobileapplication.ReportIssueActivity;
-import com.example.civicnodemobileapplication.ViewComplaintsActivity;
-import com.example.civicnodemobileapplication.BillPaymentActivity;
-
+import com.example.civicnodemobileapplication.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button reportIssueBtn, viewComplaintsBtn, billPaymentBtn;
-    private TextView welcomeMessage;
+    private Button reportIssueBtn, viewComplaintsBtn, billPaymentBtn, logoutBtn, editProfileBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Find views
-        welcomeMessage = findViewById(R.id.welcomeMessage);
-        reportIssueBtn = findViewById(R.id.btnReportIssue);
-        viewComplaintsBtn = findViewById(R.id.btnViewComplaints);
-        billPaymentBtn = findViewById(R.id.btnBillPayment);
+        // Initializing Buttons
+        reportIssueBtn = findViewById(R.id.reportIssueBtn);
+        viewComplaintsBtn = findViewById(R.id.viewComplaintsBtn);
+        billPaymentBtn = findViewById(R.id.billPaymentBtn);
+        logoutBtn = findViewById(R.id.logoutBtn);
+        editProfileBtn = findViewById(R.id.editProfileBtn); // Added Edit Profile Button
 
-        // Set onClickListeners
-        reportIssueBtn.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, ReportIssueActivity.class));
+        // Button Click Listeners
+        reportIssueBtn.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, ReportIssueActivity.class)));
+        viewComplaintsBtn.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, ViewComplaintsActivity.class)));
+        billPaymentBtn.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, BillPaymentActivity.class)));
+
+        // Logout Functionality
+        logoutBtn.setOnClickListener(view -> {
+            // Implement logout logic (FirebaseAuth.getInstance().signOut())
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
         });
 
-        viewComplaintsBtn.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, ViewComplaintsActivity.class));
-        });
-
-        billPaymentBtn.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, BillPaymentActivity.class));
+        // Open Edit Profile Activity
+        editProfileBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
+            startActivity(intent);
         });
     }
 }

@@ -1,35 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/editTextAccountNumber"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_height="wrap_content"
+        android:hint="Account Number" />
 
-        <EditText
-            android:id="@+id/editTextAccountNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Account Number"
-            android:inputType="number" />
+    <EditText
+        android:id="@+id/editTextAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Amount" />
 
-        <EditText
-            android:id="@+id/editTextAmount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Amount (₹)"
-            android:inputType="numberDecimal" />
-
-        <Button
-            android:id="@+id/btnPayBill"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/teal_700"
-            android:text="Pay Now"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/btnPayBill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pay Bill" />
+</LinearLayout>

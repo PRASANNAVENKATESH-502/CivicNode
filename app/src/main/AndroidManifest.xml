@@ -18,9 +18,9 @@
         android:theme="@style/Theme.CivicNodeMobileApplication"
         android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true"
-        tools:targetApi="31">  <!-- FIXED: Properly closed application tag -->
+        tools:targetApi="31">
 
-        <!-- Firebase API Key Meta-Data (Correctly placed inside <application>) -->
+        <!-- Firebase API Key Meta-Data -->
         <meta-data
             android:name="com.google.firebase.auth.API_KEY"
             android:value="@string/your_firebase_api_key" />
@@ -58,24 +58,33 @@
             android:label="Admin Dashboard"
             android:theme="@style/Theme.CivicNodeMobileApplication" />
 
+        <!-- Report Issue Activity -->
         <activity
             android:name=".ReportIssueActivity"
             android:exported="true"
             android:label="Report Issue"
             android:theme="@style/Theme.CivicNodeMobileApplication" />
 
+        <!-- View Complaints Activity -->
         <activity
             android:name=".ViewComplaintsActivity"
             android:exported="true"
             android:label="View Complaints"
             android:theme="@style/Theme.CivicNodeMobileApplication" />
 
+        <!-- Bill Payment Activity -->
         <activity
             android:name=".BillPaymentActivity"
             android:exported="true"
             android:label="Bill Payment"
             android:theme="@style/Theme.CivicNodeMobileApplication" />
 
+        <!-- Edit Profile Activity (Added) -->
+        <activity
+            android:name=".EditProfileActivity"
+            android:exported="true"
+            android:label="Edit Profile"
+            android:theme="@style/Theme.CivicNodeMobileApplication" />
 
     </application>
 </manifest>
